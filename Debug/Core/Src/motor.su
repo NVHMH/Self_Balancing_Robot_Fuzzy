@@ -1,0 +1,7 @@
+motor.c:10:13:Limit_val	16	static
+motor.c:15:13:Set_duty	32	static
+motor.c:24:6:Init_tim_pwm	8	static
+motor.c:31:13:Stop_motor	8	static
+motor.c:38:6:Forward	16	static
+motor.c:45:6:Reverse	16	static
+motor.c:52:6:Controller	32	static
