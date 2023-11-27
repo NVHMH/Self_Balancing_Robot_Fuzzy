@@ -24,6 +24,8 @@
 /* USER CODE BEGIN Includes */
 #include <mpu6050.h>
 #include <motor.h>
+#include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -38,7 +40,9 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define FRAME  "\n%s%06d %s%06d %s%06d \r"
+#define SIGN(X) ((X)>=0)?" ":"-"
+#define ABS(X) ((X)>=0)?((X)):(-(X))
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -58,8 +62,7 @@ UART_HandleTypeDef huart1;
 	};
 
 	uint8_t		u8_flag_10ms = 0;
-	double		d_angle;
-	uint8_t 	u8_rx_data;
+	char data[100];
 
 /* USER CODE END PV */
 
@@ -85,44 +88,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-	if(huart->Instance == USART1){
-//		if(u8_rx_data == 'P'){
-//			t_pid.f_Kp += 0.001;
-//		}
-//		if(u8_rx_data == 'p'){
-//			t_pid.f_Kp -= 0.001;
-//		}
-//		if(u8_rx_data == 'I'){
-//			t_pid.f_Ki += 0.000001;
-//		}
-//		if(u8_rx_data == 'i'){
-//			t_pid.f_Ki -= 0.000001;
-//		}
-//		if(u8_rx_data == 'D'){
-//			t_pid.f_Kd += 0.0001;
-//		}
-//		if(u8_rx_data == 'd'){
-//			t_pid.f_Kd -= 0.0001;
-//		}
-//		if(u8_rx_data == 'O'){
-//			t_pid.f_setpoint += 0.5;
-//		}
-//		if(u8_rx_data == 'o'){
-//			t_pid.f_setpoint -= 0.5;
-//		}
-//		if(u8_rx_data == '0'){
-//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 0);
-//		}
-//		if(u8_rx_data == '1'){
-//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, 1);
-//
-//		}
-//		HAL_UART_Receive_IT(&huart1,&u8_rx_data,1);
-	}
-
-}
 /* USER CODE END 0 */
 
 /**
@@ -159,7 +124,6 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_IT(&huart1,&u8_rx_data,1);
   HAL_TIM_Base_Start_IT(&htim1);
   Init_tim_pwm();
 
@@ -183,6 +147,11 @@ int main(void)
 		  u8_flag_10ms = 0;
 		  MPU6050_Read_All(&hi2c1,&t_MPU6050);
 		  Controller (t_MPU6050.KalmanAngleY, t_MPU6050.Gy* RAD_TO_DEG, &t_fuzzy);
+		  int theta = t_MPU6050.KalmanAngleY*1000.0;
+		  int theta_dot = t_MPU6050.Gy* RAD_TO_DEG*1000.0;
+		  int uk = t_fuzzy.f_out_fuzzy;
+		  sprintf(data,FRAME,SIGN(theta),ABS(theta),SIGN(theta_dot),ABS(theta_dot),SIGN(uk),ABS(uk));
+		  HAL_UART_Transmit(&huart1,(uint8_t*)data, strlen(data), 5);
 	  }
   }
   /* USER CODE END 3 */
