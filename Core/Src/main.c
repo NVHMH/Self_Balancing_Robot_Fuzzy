@@ -47,19 +47,15 @@ I2C_HandleTypeDef hi2c1;
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim3;
 TIM_HandleTypeDef htim4;
-
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 	MPU6050_t	t_MPU6050;
 
-
 	Fuzzy_t		t_fuzzy = {
 			.f_K_theta = K_THETA,
 			.f_K_theta_dot = K_THETA_DOT,
 	};
-
-
 
 	uint8_t		u8_flag_10ms = 0;
 	double		d_angle;
@@ -181,7 +177,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
 
 	  if (u8_flag_10ms)
 	  {

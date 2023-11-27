@@ -70,12 +70,7 @@ static const float u_ZE_p[] = { 0.0000f };
 static const float u_PS_p[] = { 0.3333f };
 static const float u_PM_p[] = { 0.4500f };//0.6670
 static const float u_PB_p[] = { 1.0000f };
-//
-//static const float theta_NB_p[] = { -3.0000f, -1.0000f, -0.5000f, -0.3000f };
-//static const float theta_NS_p[] = { -0.5000f, -0.3000f, 0.0000f };
-//static const float theta_ZE_p[] = { -0.3000f, 0.0000f, 0.3000f };
-//static const float theta_PS_p[] = { 0.0000f, 0.3000f, 0.5000f };
-//static const float theta_PB_p[] = { 0.3000f, 0.5000f, 1.0000f, 3.0000f };
+
 
 void SBR1_init( void ){
     /* Set inputs */

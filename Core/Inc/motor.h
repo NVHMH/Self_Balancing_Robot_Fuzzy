@@ -21,12 +21,12 @@
 #define		MAX_CNT			1899
 #define 	MIN_CNT			100
 #define 	VAL_MAX			1
-#define		EPSILON			0.3
+#define		EPSILON			0
 #define 	TIME_EXAMPLE	10 		// 10ms
 #define 	ANGLE_THRESHOLD	60
 #define 	K_THETA 			7.3
 #define 	K_THETA_DOT			110
-#define 	OFFSET			0
+#define 	OFFSET			-2.0
 
 
 
