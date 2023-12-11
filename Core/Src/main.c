@@ -141,18 +141,19 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  Reverse(1);
 
-	  if (u8_flag_10ms)
-	  {
-		  u8_flag_10ms = 0;
-		  MPU6050_Read_All(&hi2c1,&t_MPU6050);
-		  Controller (t_MPU6050.KalmanAngleY, t_MPU6050.Gy* RAD_TO_DEG, &t_fuzzy);
-		  int theta = t_MPU6050.KalmanAngleY*1000.0;
-		  int theta_dot = t_MPU6050.Gy* RAD_TO_DEG*1000.0;
-		  int uk = t_fuzzy.f_out_fuzzy;
-		  sprintf(data,FRAME,SIGN(theta),ABS(theta),SIGN(theta_dot),ABS(theta_dot),SIGN(uk),ABS(uk));
-		  HAL_UART_Transmit(&huart1,(uint8_t*)data, strlen(data), 5);
-	  }
+//	  if (u8_flag_10ms)
+//	  {
+//		  u8_flag_10ms = 0;
+//		  MPU6050_Read_All(&hi2c1,&t_MPU6050);
+//		  Controller (t_MPU6050.KalmanAngleY, t_MPU6050.Gy* RAD_TO_DEG, &t_fuzzy);
+//		  int theta = t_MPU6050.KalmanAngleY*1000.0;
+//		  int theta_dot = t_MPU6050.Gy* RAD_TO_DEG*1000.0;
+//		  int uk = t_fuzzy.f_out_fuzzy;
+//		  sprintf(data,FRAME,SIGN(theta),ABS(theta),SIGN(theta_dot),ABS(theta_dot),SIGN(uk),ABS(uk));
+//		  HAL_UART_Transmit(&huart1,(uint8_t*)data, strlen(data), 5);
+//	  }
   }
   /* USER CODE END 3 */
 }
